@@ -10,35 +10,75 @@
     </head>
     <body>
         <div id="banner" width="100%" style="background-color:darkgoldenrod">
-            <h1>WAIFUS</h1>    
+            <center><h1>WAIFUS</h1></center>    
         </div>
         <div>
-            <div id="sideNav"style="float:left; width:30%; background-color:gray">
-                <h3>MENU</h3>
-                <ul>
-                    <li><button>Micaiah</button></li>
-                    <li><button>Zelda</button></li>
-                    <li><button>You</button></li>
-                    <li><button>Sanae</button></li>
-                    <li><button>Mei</button></li>
-                    <li><button>Sakura</button></li>
-                </ul>
+            <div id="sideNav"style="float:left; background-color:gray; width:20%">
+                <h3>LIST</h3>
+                <ul class="storedWaifus"/>
             </div>
-            <div id="mainPage" style="float:left; width:70%">
+            <div id="mainPage" style="float:left; width:50%">
                 <center>
-                    <h2>NAME</h2>
-                    <h2>PICTURE</h2>
+                    <h2 class="name">NAME</h2>
+                    <img class="image", height="400p"></img>
                     <h3>Some info</h3>
                     <ul>
-                        <li>Origin</li>
-                        <li>Age</li>
-                        <li>Hair color</li>
-                        <li>Height</li>
-                        <li>Personality</li>
-                        <li>Alias</li>
+                        <li><b>Origin: </b><a class="origin"></a></li>
+                        <li><b>Occupation: </b><a class="occupation"></a></li>
                     </ul>
                 </center>
+            </div>
+            <div id="createMenu" style="float:left; width:30%">
+                    <b>Name: </b><input class="newName"/><br>
+                    <b>Image: </b><input class="newImage"/><br>
+                    <b>Origin: </b><input class="newOrigin"/><br>
+                    <b>Occupation: </b><input class="newOccupation"/><br>
+                    <button onclick="Add()">Add</button>
             </div>
         </div>
     </body>
 </html>
+<script>
+    let listado = [
+        {"name":"Micaiah", "img":"images/micaiah.jpg", "origin":"Fire Emblem Radiant Dawn", "occupation": "Priestess"}, 
+        {"name":"Zelda", "img":"images/zelda.png", "origin":"The Legend of Zelda A Link Between Worlds", "occupation": "Princess of Hyrule"}, 
+        {"name":"You", "img":"images/you.png", "origin":"Love Live!", "occupation": "School Idol"}, 
+        {"name":"Sanae", "img":"images/sanae.png", "origin":"Touhou", "occupation": "Shrine Maiden"}, 
+        {"name":"Mei", "img":"images/mei.jpg", "origin":"Pokemon Black2 / White2", "occupation": "Pokemon Trainer"}, 
+        {"name":"Sakura", "img":"images/sakura.png", "origin":"Cardcaptor Sakura", "occupation": "Student / Master of Clow Cards"}
+    ];
+    var app = new function() {
+        let vistaListado = document.querySelector(".storedWaifus");
+        listado.forEach((item, index) => {
+            let elemento = document.createElement("button");
+            elemento.setAttribute("onClick", "actualizaPagina(" + index + ")");
+            elemento.appendChild(document.createTextNode(item.name));
+            let li = document.createElement("li");
+            li.appendChild(elemento);
+            vistaListado.appendChild(li); 
+        });
+        actualizaPagina(0);
+    }
+
+    function actualizaPagina(i) {
+        let vista = document.querySelector(".image");
+        vista.setAttribute("src", listado[i].img);
+        vista = document.querySelector(".name");
+        vista.innerHTML = listado[i].name;
+        vista = document.querySelector(".origin");
+        vista.innerHTML = listado[i].origin;
+        vista = document.querySelector(".occupation");
+        vista.innerHTML = listado[i].occupation;
+    }
+
+    function add() {
+        let newWaifu = {
+            "name":"", 
+            "img":"", 
+            "origin":"", 
+            "occupation": ""    
+        }
+        newWaifu.name = document.querySelector()
+        listado.push(newWaifu);
+    }
+</script>
