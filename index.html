@@ -33,7 +33,7 @@
                     <b>Image: </b><input class="newImage"/><br>
                     <b>Origin: </b><input class="newOrigin"/><br>
                     <b>Occupation: </b><input class="newOccupation"/><br>
-                    <button onclick="Add()">Add</button>
+                    <button onclick="add()">Add</button>
             </div>
         </div>
     </body>
@@ -48,16 +48,25 @@
         {"name":"Sakura", "img":"images/sakura.png", "origin":"Cardcaptor Sakura", "occupation": "Student / Master of Clow Cards"}
     ];
     var app = new function() {
+        cargarlista();
+        actualizaPagina(0);
+    }
+
+    function cargarlista(){
         let vistaListado = document.querySelector(".storedWaifus");
+        vistaListado.innerHTML = "";
         listado.forEach((item, index) => {
             let elemento = document.createElement("button");
             elemento.setAttribute("onClick", "actualizaPagina(" + index + ")");
             elemento.appendChild(document.createTextNode(item.name));
             let li = document.createElement("li");
             li.appendChild(elemento);
+            let borrar = document.createElement("a");
+            borrar.innerHTML = "[Borrar]";
+            borrar.setAttribute("onClick", "remove(" + index + ")");
+            li.appendChild(borrar);
             vistaListado.appendChild(li); 
         });
-        actualizaPagina(0);
     }
 
     function actualizaPagina(i) {
@@ -78,7 +87,16 @@
             "origin":"", 
             "occupation": ""    
         }
-        newWaifu.name = document.querySelector()
+        newWaifu.name = document.querySelector(".newName").value;
+        newWaifu.img = document.querySelector(".newImage").value;
+        newWaifu.origin = document.querySelector(".newOrigin").value;
+        newWaifu.occupation = document.querySelector(".newOccupation").value;
         listado.push(newWaifu);
+        cargarlista();
+    }
+
+    function remove(i) {
+        listado.splice(i, 1);
+        cargarlista();
     }
 </script>
