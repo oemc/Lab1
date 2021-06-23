@@ -1,3 +1,8 @@
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous"/>
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Dancing+Script&display=swap" rel="stylesheet"> 
 <html>
     <head>
         <meta charset="utf-8">
@@ -9,31 +14,47 @@
         <title>Lab 1 - Oscar Morales</title>
     </head>
     <body>
-        <div id="banner" width="100%" style="background-color:darkgoldenrod">
-            <center><h1>WAIFUS</h1></center>    
-        </div>
-        <div>
-            <div id="sideNav"style="float:left; background-color:gray; width:20%">
-                <h3>LIST</h3>
-                <ul class="storedWaifus"/>
+        <div class="container-fluid">
+            <div class="row" id="banner">
+                <h1 class="text-primary text-center" style="font-size: 60px; font-family: 'Dancing Script', cursive">Waifus</h1>    
             </div>
-            <div id="mainPage" style="float:left; width:50%">
-                <center>
-                    <h2 class="name">NAME</h2>
-                    <img class="image", height="400p"></img>
-                    <h3>Some info</h3>
+            <div class="row">
+                <div class="col-xs-3" id="sideNav">
+                    <div class="well">
+                        <h3 class="text-center">List</h3>
+                        <ul class="storedWaifus"></ul>
+                    </div>
+                </div>
+                <div class="col-xs-6" id="mainPage">
+                    <h3 class="text-center name">NAME</h3>
+                    <img class="img-responsive image"></img>
+                    <h4 class="text-center">Some info</h4>
                     <ul>
                         <li><b>Origin: </b><a class="origin"></a></li>
                         <li><b>Occupation: </b><a class="occupation"></a></li>
                     </ul>
-                </center>
-            </div>
-            <div id="createMenu" style="float:left; width:30%">
-                    <b>Name: </b><input class="newName"/><br>
-                    <b>Image: </b><input class="newImage"/><br>
-                    <b>Origin: </b><input class="newOrigin"/><br>
-                    <b>Occupation: </b><input class="newOccupation"/><br>
-                    <button onclick="add()">Add</button>
+                </div>
+                <div class="col-xs-3" id="createMenu">
+                    <div class="well">
+                        <div class="row">
+                            <div class="col-xs-3">Name</div>
+                            <div class="col-xs-9"><input class="form-control newName"/></div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-3">Image</div>
+                            <div class="col-xs-9"><input class="form-control newImage"/></div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-3">Origin</div>
+                            <div class="col-xs-9"><input class="form-control newOrigin"/></div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-3">Occupation</div>
+                            <div class="col-xs-9"><input class="form-control newOccupation"/></div>
+                        </div>
+                        <button class="btn btn-block btn-primary" onclick="add()"><i class="fa fa-paper-plane"></i> Add</button>
+                    </div>    
+                </div>
             </div>
         </div>
     </body>
@@ -56,14 +77,21 @@
         let vistaListado = document.querySelector(".storedWaifus");
         vistaListado.innerHTML = "";
         listado.forEach((item, index) => {
-            let elemento = document.createElement("button");
-            elemento.setAttribute("onClick", "actualizaPagina(" + index + ")");
+            let elemento = document.createElement("div");
             elemento.appendChild(document.createTextNode(item.name));
+            let ver = document.createElement("button");
+            ver.setAttribute("class", "btn btn-info");
+            ver.setAttribute("onClick", "actualizaPagina(" + index + ")");
+            ver.innerHTML="Ver";
+            let borrar = document.createElement("button");
+            borrar.setAttribute("class", "btn btn-danger");
+            borrar.innerHTML = "Borrar";
+            borrar.setAttribute("onClick", "remove(" + index + ")");
+            //let row = document.createElement("div");
+            //row.setAttribute("class", "row");
             let li = document.createElement("li");
             li.appendChild(elemento);
-            let borrar = document.createElement("a");
-            borrar.innerHTML = "[Borrar]";
-            borrar.setAttribute("onClick", "remove(" + index + ")");
+            li.appendChild(ver);
             li.appendChild(borrar);
             vistaListado.appendChild(li); 
         });
